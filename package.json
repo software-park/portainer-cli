@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Portainer API client",
+  "main": "dist/index.js",
   "bin": {
     "portainer": "./bin/portainer"
   },
