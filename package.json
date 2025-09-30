@@ -21,11 +21,11 @@
   "packageManager": "pnpm@10.17.1",
   "devDependencies": {
     "@types/node": "^24.6.0",
-    "tsdown": "^0.15.5",
     "tsx": "^4.20.6",
     "typescript": "^5.9.2"
   },
   "dependencies": {
-    "jwt-decode": "^4.0.0"
+    "jwt-decode": "^4.0.0",
+    "tsdown": "^0.15.5"
   }
 }
