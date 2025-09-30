@@ -1,0 +1,33 @@
+{
+  "name": "portainer",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Portainer API client",
+  "bin": {
+    "portainer": "./bin/portainer"
+  },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "scripts": {
+    "cli": "tsx src/cli.ts",
+    "build": "tsdown",
+    "postinstall": "tsdown"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "packageManager": "pnpm@10.17.1",
+  "devDependencies": {
+    "@types/node": "^24.6.0",
+    "tsdown": "^0.15.5",
+    "tsx": "^4.20.6",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "jwt-decode": "^4.0.0"
+  }
+}
