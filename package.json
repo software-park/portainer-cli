@@ -3,15 +3,12 @@
   "version": "1.0.0",
   "type": "module",
   "description": "Portainer API client",
-  "main": "dist/index.js",
+  "source": "src/index.ts",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "types": "dist/index.d.ts",
   "bin": {
     "portainer": "./bin/portainer"
-  },
-  "exports": {
-    ".": {
-      "import": "./dist/index.js",
-      "require": "./dist/index.cjs"
-    }
   },
   "scripts": {
     "cli": "tsx src/cli.ts",
