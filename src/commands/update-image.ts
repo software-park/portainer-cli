@@ -1,4 +1,4 @@
-import PortainerClient from "../lib/client";
+import { PortainerClient } from "../lib/client";
 import { PortainerKubernetesClient } from "../lib/kubernetes-client";
 import { Command } from "../types";
 

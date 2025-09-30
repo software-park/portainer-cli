@@ -8,7 +8,7 @@ interface PortainerClientOptions {
   password?: string;
 }
 
-class PortainerClient {
+export class PortainerClient {
   private username?: string;
   private password?: string;
   private key?: string;
@@ -161,5 +161,3 @@ class PortainerClient {
     }
   }
 }
-
-export default PortainerClient;

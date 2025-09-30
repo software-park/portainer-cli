@@ -1,4 +1,4 @@
-import PortainerClient from "../lib/client";
+import { PortainerClient } from "../lib/client";
 
 export class PortainerKubernetesClient {
   constructor(private client: PortainerClient) { }
