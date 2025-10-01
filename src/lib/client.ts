@@ -1,6 +1,6 @@
 import { jwtDecode } from "jwt-decode";
 
-type RequestMethod = 'GET' | 'POST' | 'PATCH' | 'PUT' | 'DELETE'
+type RequestMethod = "GET" | "POST" | "PATCH" | "PUT" | "DELETE";
 interface PortainerClientOptions {
   url: string;
   key?: string;
@@ -24,7 +24,7 @@ export class PortainerClient {
 
     if (options.key && options.username && options.password)
       throw new Error(
-        "Conflicting key and username and password options are set",
+        "Conflicting key and username and password options are set"
       );
 
     if (options.username && options.password) {
@@ -56,7 +56,6 @@ export class PortainerClient {
           // expires in < 1 minute
           await this.refreshAuthToken();
         }
-
       } else {
         await this.refreshAuthToken();
       }
@@ -106,7 +105,7 @@ export class PortainerClient {
     requestMethod: RequestMethod,
     apiPath: string,
     requestData?: any,
-    requestHeaders = {},
+    requestHeaders = {}
   ) {
     const apiAuthHeaders = await this.getAPIAuthHeaders();
 
@@ -119,14 +118,19 @@ export class PortainerClient {
       requestMethod,
       apiPath,
       requestData,
-      apiMergedHeaders,
+      apiMergedHeaders
     );
   }
 
   /**
    * Calls the Portainer API without authentication
    */
-  async callAPI(requestMethod: RequestMethod, apiPath: string, requestData?: any, requestHeaders = {}) {
+  async callAPI(
+    requestMethod: RequestMethod,
+    apiPath: string,
+    requestData?: any,
+    requestHeaders = {}
+  ) {
     const url = new URL(apiPath, this.baseURL);
 
     const options = {
@@ -143,7 +147,7 @@ export class PortainerClient {
     if (!response.ok) {
       console.log(
         `Request to ${url} failed with status ${response.status}`,
-        await response.text(),
+        await response.text()
       );
 
       throw new Error(`HTTP error! Status: ${response.status}`);

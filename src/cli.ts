@@ -1,22 +1,23 @@
 import { parseArgs, ParseArgsOptionsConfig } from "node:util";
 import * as commandMap from "./commands";
-import { Command } from "./types";
+import { Command, CommandValues } from "./types";
 import env from "./env";
 
 const options: ParseArgsOptionsConfig = {
   namespace: {
-    type: 'string',
-    short: 'n',
-    default: 'default',
+    type: "string",
+    short: "n",
+    default: "default",
   },
   endpoint: {
-    type: 'string',
-    short: 'e',
-    default: '1',
+    type: "string",
+    short: "e",
+    default: "1",
   },
-  help: { type: 'boolean', short: 'h', default: false },
+  help: { type: "boolean", short: "h", default: false },
 };
 
+const commands: Command[] = Object.values(commandMap);
 const help = `
 Usage: portainer [options] <command> [args...]
 
@@ -30,30 +31,46 @@ Environment Variables:
   PORTAINER_PASSWORD    Portainer password
 
 Commands:
-  update-image <deployment-name> <image>  Update deployment image
-`
+  ${commands.map((c) => c.description).join("\n  ")}
+`;
 
-
-const commands: Command[] = Object.values(commandMap);
-
-const {
-  values,
-  positionals,
-} = parseArgs({ options, allowPositionals: true });
+const { values, positionals } = parseArgs({ options, allowPositionals: true });
 
 if (values.help || positionals.length === 0) {
   console.log(help);
-} else if (env.portainerURL === undefined || env.portainerUsername === undefined || env.portainerPassword === undefined) {
-  console.error("Error: PORTAINER_URL, PORTAINER_USERNAME, and PORTAINER_PASSWORD environment variables must be set.");
+} else if (
+  env.portainerURL === undefined ||
+  env.portainerUsername === undefined ||
+  env.portainerPassword === undefined
+) {
+  console.error(
+    "Error: PORTAINER_URL, PORTAINER_USERNAME, and PORTAINER_PASSWORD environment variables must be set."
+  );
   console.log(help);
   process.exit(1);
 } else {
   const [command, ...others] = positionals;
-  const findCommand = commands.find(c => c.command === command);
+  const findCommand = commands.find((c) => c.command === command);
 
-  if (findCommand) {
-    findCommand.handler(others, values, env);
+  function isValidCommand(command?: Command): command is Command {
+    if (command == null) {
+      return false;
+    }
+
+    if (command.validator != null && !command.validator(others)) {
+      return false;
+    }
+
+    return true;
+  }
+
+  if (findCommand == null) {
+    console.error(`Error: unknown command ${command}`);
+    console.log(help);
+  } else if (isValidCommand(findCommand)) {
+    findCommand.handler(others, values as CommandValues, env);
   } else {
+    console.error(`Error: invalid arguments for command ${command}`);
     console.log(help);
   }
 }

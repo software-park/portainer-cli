@@ -1,21 +1,19 @@
 import { PortainerClient } from "../lib/client";
 
 export class PortainerKubernetesClient {
-  constructor(private client: PortainerClient) { }
+  constructor(private client: PortainerClient) {}
 
-  async updateDeploymentImage(
-    {
-      imageName,
-      endpointId = 1,
-      namespace = "default",
-      deploymentName,
-    }: {
-      endpointId?: number;
-      namespace?: string;
-      deploymentName: string;
-      imageName: string;
-    }
-  ) {
+  async updateDeploymentImage({
+    imageName,
+    endpointId = 1,
+    namespace = "default",
+    deploymentName,
+  }: {
+    endpointId?: number;
+    namespace?: string;
+    deploymentName: string;
+    imageName: string;
+  }) {
     const response = await this.client.callAPIWithKey(
       "PATCH",
       `/api/endpoints/${endpointId}/kubernetes/apis/apps/v1/namespaces/${namespace}/deployments/${deploymentName}`,
@@ -28,7 +26,7 @@ export class PortainerKubernetesClient {
       ],
       {
         "Content-Type": "application/json-patch+json",
-      },
+      }
     );
 
     console.log(`Deployment response:`, response);

@@ -11,7 +11,7 @@
     "portainer": "./bin/portainer"
   },
   "scripts": {
-    "cli": "tsx src/cli.ts",
+    "cli": "tsx --env-file-if-exists=.env --env-file-if-exists=.env.local src/cli.ts",
     "build": "tsdown",
     "prepare": "tsdown"
   },

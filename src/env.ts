@@ -6,7 +6,7 @@ const env = {
   portainerURL,
   portainerUsername,
   portainerPassword,
-}
+};
 
 export type Env = typeof env;
 export default env;
