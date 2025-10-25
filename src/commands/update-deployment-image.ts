@@ -3,8 +3,8 @@ import { PortainerKubernetesClient } from "../lib/kubernetes-client";
 import { Command } from "../types";
 
 export default {
-  command: "update-image",
-  description: "update-image <deployment-name> <image>  Update deployment image",
+  command: "update-deployment-image",
+  description: "update-deployment-image <deployment-name> <image>  Update deployment image",
   validator: (positionals) => positionals.length === 2,
   handler: async (positionals, values, env) => {
     const client = new PortainerKubernetesClient(
